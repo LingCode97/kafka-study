@@ -1,4 +1,4 @@
-package com.example.kafkastudy.kafka;
+package com.example.kafkastudy.kafka.producer;
 
 import com.example.kafkastudy.constant.KafkaProducerProperties;
 import org.apache.kafka.clients.producer.KafkaProducer;

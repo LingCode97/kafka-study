@@ -1,5 +1,6 @@
 package com.example.kafkastudy.kafka.producer;
 
+import com.example.kafkastudy.constant.KafkaBrokerProperties;
 import com.example.kafkastudy.constant.KafkaProducerProperties;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -23,12 +24,13 @@ public class Producer {
     @PostConstruct
     public void init(){
         Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaProducerProperties.KAFKA_BROKER_URL);
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaBrokerProperties.KAFKA_BROKER_URL);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,StringSerializer.class);
         props.put(ProducerConfig.CLIENT_ID_CONFIG, KafkaProducerProperties.KAFKA_CLIENT_ID);
         //同步发送时，可选配置重试次数，重试指定次数后还失败才会抛出异常
         //props.put(ProducerConfig.RETRIES_CONFIG,3);
+        props.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG,ProducerIntercept.class);
         producer = new KafkaProducer<>(props);
     }
 
@@ -44,5 +46,9 @@ public class Producer {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void close(){
+        producer.close();
     }
 }

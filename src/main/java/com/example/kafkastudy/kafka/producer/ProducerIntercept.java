@@ -38,7 +38,7 @@ public class ProducerIntercept implements ProducerInterceptor<String,String> {
 
     @Override
     public void close() {
-        //拦截器关闭时调用
+        //生产者关闭时调用
         double successRatio = (double) sendSuccess/(sendFail+sendSuccess);
         log.info("发送成功率:{}",String.format("%f",successRatio*100)+"%");
     }

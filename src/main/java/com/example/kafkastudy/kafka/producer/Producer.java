@@ -30,7 +30,7 @@ public class Producer {
         props.put(ProducerConfig.CLIENT_ID_CONFIG, KafkaProducerProperties.KAFKA_CLIENT_ID);
         //同步发送时，可选配置重试次数，重试指定次数后还失败才会抛出异常
         //props.put(ProducerConfig.RETRIES_CONFIG,3);
-        props.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG,ProducerIntercept.class);
+        props.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG,ProducerIntercept.class.getName());
         producer = new KafkaProducer<>(props);
     }
 

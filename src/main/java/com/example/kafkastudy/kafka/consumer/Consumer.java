@@ -37,6 +37,7 @@ public class Consumer {
         props.put(ConsumerConfig.GROUP_ID_CONFIG, KafkaConsumerProperties.KAFKA_GROUP_ID);
         props.put(ConsumerConfig.CLIENT_ID_CONFIG,KafkaConsumerProperties.KAFKA_CLIENT_ID);
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"false");//关闭自动提交
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");//从头开始消费
         consumer = new KafkaConsumer<>(props);
     }
 
@@ -56,7 +57,6 @@ public class Consumer {
             log.error("consumer had exception:{}", ExceptionUtils.getStackTrace(e));
         }finally {
             try {
-                //最后同步提交，确保提交最终的消费进度
                 consumer.commitSync();
             }finally {
                 consumer.close();
